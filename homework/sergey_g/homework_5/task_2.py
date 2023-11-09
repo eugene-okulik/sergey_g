@@ -8,15 +8,23 @@
 # С помощью срезов и метода index получите из каждой строки с результатом число, прибавьте к полученному числу 10,
 # результат сложения распечатайте.
 
-result_operation1 = "результат операции: 42"
-result_operation2 = "результат операции: 514"
-result_operation3 = "результат работы программы: 9"
 
-# print(result_operation1.index('42'), result_operation2.index('514'), result_operation3.index('9'))
+# Записываем строки в переменные
+result_1 = "результат операции: 42"
+result_2 = "результат операции: 514"
+result_3 = "результат работы программы: 9"
 
-num1 = int(result_operation1[20:22])
-num2 = int(result_operation2[20:23])
-num3 = int(result_operation3[28:29])
-print(f'Первый результат сложения: {num1 + 10}')
-print(f'Второй результат сложения: {num2 + 10}')
-print(f'Третий результат сложения: {num3 + 10}')
+# Находим индекс после двоеточия
+start_index_result_1 = result_1.index(':') + 2
+start_index_result_2 = result_2.index(':') + 2
+start_index_result_3 = result_3.index(':') + 2
+
+# Выводим число, начиная с первого индекса
+num_1 = int(result_1[start_index_result_1:])
+num_2 = int(result_2[start_index_result_2:])
+num_3 = int(result_3[start_index_result_3:])
+
+# Печатаем результат сложения
+print(f'Первый результат сложения: {num_1 + 10}')
+print(f'Второй результат сложения: {num_2 + 10}')
+print(f'Третий результат сложения: {num_3 + 10}')
