@@ -4,8 +4,8 @@
 # и после этого выводит получившийся текст на экран.
 
 text = (
-        'Etiam tincidunt neque erat, quis molestie enim imperdiet vel. Integer urna nisl, '
-        + 'facilisis vitae semper at, dignissim vitae libero'
+    'Etiam tincidunt neque erat, quis molestie enim imperdiet vel. Integer urna nisl, '
+    + 'facilisis vitae semper at, dignissim vitae libero'
 )
 print(f'Исходная версия текста: {text}')
 
