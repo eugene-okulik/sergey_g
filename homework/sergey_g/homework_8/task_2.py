@@ -9,15 +9,15 @@ import sys
 sys.set_int_max_str_digits(0)
 
 
-def fibonacci(n):
+def fibonacci():
     a, b = 0, 1
-    for x in range(n):
+    while True:
         yield a
         a, b = b, a + b
 
 
 count = 1
-for number in fibonacci(100000):
+for number in fibonacci():
     if count == 5:
         print(f"{count}е число Фибоначи = {number}")
     if count == 200:

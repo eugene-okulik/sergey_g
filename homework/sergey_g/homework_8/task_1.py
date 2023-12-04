@@ -10,8 +10,6 @@
 # 600, True - '$3785'
 
 import random
-from random import choice
-from random import randint
 
 salary = int(input("Введите число: "))
 bonus = random.choice([True, False])
