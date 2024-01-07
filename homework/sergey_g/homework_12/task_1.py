@@ -68,7 +68,7 @@ white_rose = Rose("Белая роза", 95, 25, 6, 6, True)
 
 bouquet = Bouquet([red_rose, yellow_tulip, white_rose])
 
-print(f"Полная стоимость букета:", bouquet.calculate_cost(), "руб.")
+print("Полная стоимость букета:", bouquet.calculate_cost(), "руб.")
 print("Средний срок жизни букета:", int(bouquet.average_lifespan()), "дней")
 
 bouquet.sort_by_freshness()
