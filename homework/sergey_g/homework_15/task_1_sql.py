@@ -15,22 +15,18 @@ db = mysql.connect(
 
 cursor = db.cursor(dictionary=True)
 
-# Создание студента
-name_stud = 'Tom'
-second_name_stud = 'Delonge'
-add_stud = 'INSERT INTO students (name, second_name) values (%s, %s)'
-cursor.execute(add_stud, (name_stud, second_name_stud))
-student_id = cursor.lastrowid
-db.commit()
-
-# Создание группы и определения в нее созданного студента
-add_stud_group = 'INSERT INTO `groups` (title, start_date, end_date) values (%s, %s, %s)'
+# Создание группы
+add_stud_group = 'INSERT INTO `groups` (title, start_date, end_date) VALUES (%s, %s, %s)'
 cursor.execute(add_stud_group, ('Box car racing', 'feb 2024', 'feb 2024'))
 student_group_id = cursor.lastrowid
 db.commit()
 
-set_stud_to_group = 'UPDATE students SET group_id = %s where name like %s and second_name like %s'
-cursor.execute(set_stud_to_group, (student_group_id, name_stud, second_name_stud))
+# Создание студента и определения его в созданную группу
+name_stud = 'Tom'
+second_name_stud = 'Delonge'
+add_stud = 'INSERT INTO students (name, second_name, group_id) VALUES (%s, %s, %s)'
+cursor.execute(add_stud, (name_stud, second_name_stud, student_group_id))
+student_id = cursor.lastrowid
 db.commit()
 
 # Создание предметов
@@ -42,7 +38,7 @@ subjets_id_2 = cursor.lastrowid
 db.commit()
 
 # Создание занятий для каждого предмета
-add_lessons = 'INSERT INTO lessons (title, subject_id) values (%s, %s)'
+add_lessons = 'INSERT INTO lessons (title, subject_id) VALUES (%s, %s)'
 cursor.executemany(add_lessons, [
     ('gestures in rock', subjets_id_1),
     ('the rules of the circle pit', subjets_id_1),
@@ -53,7 +49,7 @@ lessons_id = cursor.lastrowid
 db.commit()
 
 # Создание книг и привязка их к студенту
-add_book = 'INSERT INTO books (title, taken_by_student_id) values (%s, %s)'
+add_book = 'INSERT INTO books (title, taken_by_student_id) VALUES (%s, %s)'
 cursor.executemany(add_book, [
     ('Blibk 182 History', student_id),
     ('The right book', student_id),
@@ -62,7 +58,7 @@ book_id = cursor.lastrowid
 db.commit()
 
 # Поставить студенту оценки для всех созданных занятий
-lesson_marks = 'insert into marks (value, lesson_id, student_id) values (%s, %s, %s)'
+lesson_marks = 'insert into marks (value, lesson_id, student_id) VALUES (%s, %s, %s)'
 cursor.executemany(lesson_marks, [
     ('OK', lessons_id, student_id),
     ('FIVE', lessons_id + 1, student_id),
@@ -91,7 +87,7 @@ all_stud_info = '''
     JOIN marks ON marks.student_id = students.id
     JOIN lessons ON marks.lesson_id = lessons.id
     JOIN subjets ON lessons.subject_id = subjets.id
-    WHERE name like %s and second_name like %s'''
-cursor.execute(all_stud_info, (name_stud, second_name_stud))
+    WHERE students.id LIKE %s '''
+cursor.execute(all_stud_info, (student_id,))
 stud_info = cursor.fetchall()
-print(f'{name_stud} {second_name_stud} all info: {stud_info}')
+print(f'{name_stud} {second_name_stud} student_id № {student_id}, all info: {stud_info}')
