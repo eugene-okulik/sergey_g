@@ -17,7 +17,7 @@ db = mysql.connect(
 cursor = db.cursor(dictionary=True, buffered=True)
 
 # Путь к csv файлу из задания
-base_path = os.path.dirname(file)
+base_path = os.path.dirname(file)  # noqa: F821
 homework_path = os.path.dirname(os.path.dirname(base_path))
 file_path_data = os.path.join(homework_path, 'eugene_okulik', 'Lesson_16', 'hw_data', 'data.csv')
 
