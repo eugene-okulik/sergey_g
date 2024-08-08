@@ -18,7 +18,6 @@ def find_text_in_logs(directory, search_text):
 
 
 def get_context(line, search_text):
-    words = line.split()
     index = line.find(search_text)
 
     start_index = max(index - 5 * len(' ') - 5, 0)  # 5 пробелов до
