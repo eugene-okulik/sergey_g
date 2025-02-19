@@ -121,4 +121,3 @@ def patch_object(object_id):
     response = requests.patch(f'{url}/{object_id}', json=body, headers=headers)
     assert response.status_code == 200, 'Status code is incorrect'
     assert response.json()['name'] == 'Apple MacBook Pro 16 (UPD)'
-    
