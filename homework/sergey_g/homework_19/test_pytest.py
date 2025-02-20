@@ -1,7 +1,7 @@
 import requests
 import pytest
 
-url = 'https://api.restful-api.dev/objects/'
+url = 'https://api.restful-api.dev/objects'
 headers = {"content-type": "application/json"}
 
 
@@ -121,3 +121,20 @@ def patch_object(object_id):
     response = requests.patch(f'{url}/{object_id}', json=body, headers=headers)
     assert response.status_code == 200, 'Status code is incorrect'
     assert response.json()['name'] == 'Apple MacBook Pro 16 (UPD)'
+
+
+# Тест удаления объекта
+@pytest.mark.critical
+def test_delete_object():
+    # Создание объекта
+    body = {
+        "name": "Object for Deletion",
+        "data": {
+            "year": 2023,
+            "price": 999.99,
+            "CPU model": "Test CPU",
+            "Hard disk size": "Test Size"
+        }
+    }
+    response = requests.post(url, json=body, headers=headers)
+    assert response.status_code == 200, 'Failed to create object'
