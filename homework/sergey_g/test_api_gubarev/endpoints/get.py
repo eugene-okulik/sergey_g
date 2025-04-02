@@ -18,4 +18,3 @@ class GetPost(Endpoint):
         self.response = requests.put(f'{self.url}/{post_id}', headers=headers)
         self.json = self.response.json()
         return self.response
-
