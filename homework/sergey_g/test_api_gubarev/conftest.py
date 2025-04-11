@@ -1,35 +1,35 @@
 import pytest
-from endpoints.get import GetPost
-from endpoints.post import CreatePost
-from endpoints.put import UpdatePost
-from endpoints.patch import PatchPost
-from endpoints.delete import DeletePost
+from endpoints.get import GetObject
+from endpoints.post import CreateObject
+from endpoints.put import UpdateObject
+from endpoints.patch import PatchObject
+from endpoints.delete import DeleteObject
 from utils.checks import Checks
 
 
 @pytest.fixture()
 def get_endpoint():
-    return GetPost()
+    return GetObject()
 
 
 @pytest.fixture()
-def create_post_endpoint():
-    return CreatePost()
+def create_endpoint():
+    return CreateObject()
 
 
 @pytest.fixture()
-def update_post_endpoint():
-    return UpdatePost()
+def update_endpoint():
+    return UpdateObject()
 
 
 @pytest.fixture()
-def patch_post_endpoint():
-    return PatchPost()
+def patch_endpoint():
+    return PatchObject()
 
 
 @pytest.fixture()
-def delete_post_endpoint():
-    return DeletePost()
+def delete_endpoint():
+    return DeleteObject()
 
 
 @pytest.fixture()
@@ -37,15 +37,22 @@ def checks():
     return Checks()
 
 
-# Фикстура для создания и удаления объекта
 @pytest.fixture(scope='function')
-def object_id(create_post_endpoint, delete_post_endpoint):
-    create_post_endpoint.create_object()
-    yield create_post_endpoint.object_id
-    delete_post_endpoint.delete_object(create_post_endpoint.object_id)
+def object_id(create_endpoint, delete_endpoint):
+    body = {
+        "name": "Test Object",
+        "data": {
+            "year": 2023,
+            "price": 999.99,
+            "CPU model": "Test CPU",
+            "Hard disk size": "Test Size"
+        }
+    }
+    create_endpoint.create_new_object(body)
+    yield create_endpoint.object_id
+    delete_endpoint.delete_object(create_endpoint.object_id)
 
 
-# Фикстура для общего начала и завершения тестирования
 @pytest.fixture(scope='session', autouse=True)
 def settings_tests():
     print("\nStart testing")
@@ -53,7 +60,6 @@ def settings_tests():
     print("\nTesting completed")
 
 
-# Фикстура для действий перед и после каждого теста
 @pytest.fixture(autouse=True)
 def around_tests():
     print("\nbefore test")

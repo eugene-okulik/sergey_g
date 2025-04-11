@@ -3,27 +3,13 @@ import allure
 from endpoints.endpoint import Endpoint
 
 
-class CreatePost(Endpoint):
+class CreateObject(Endpoint):
 
-    @allure.step('Create new post')
-    def create_new_post(self, payload, headers=None):
-        headers = headers if headers else self.headers
-        self.response = requests.post(self.url, json=payload, headers=headers)
-        self.response_json = self.response.json()
-
-    @allure.step('Create object')
-    def create_object(self, headers=None):
-        body = {
-            "name": "Test Object",
-            "data": {
-                "year": 2023,
-                "price": 999.99,
-                "CPU model": "Test CPU",
-                "Hard disk size": "Test Size"
-            }
-        }
+    @allure.step('Create new object')
+    def create_new_object(self, body, headers=None):
         headers = headers if headers else self.headers
         self.response = requests.post(self.url, json=body, headers=headers)
         self.json = self.response.json()
+        assert 'id' in self.response.json(), 'Check for the id in the response'
         self.object_id = self.response.json()['id']
         return self.object_id

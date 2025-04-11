@@ -9,7 +9,7 @@ import allure
 def test_all_objects(get_endpoint, checks):
     get_endpoint.get_all()
     checks.response = get_endpoint.response
-    checks.check_all_objects_returned()
+    checks.check_that_response_is_200()
 
 
 test_json = (
@@ -48,20 +48,19 @@ test_json = (
 @allure.story('Post')
 @allure.feature('Взаимодействие с объектами')
 @allure.title('Тест добавления объекта')
-def test_add_object(create_post_endpoint, body, checks):
-    create_post_endpoint.create_new_post(body)
-    checks.response = create_post_endpoint.response
+def test_add_object(create_endpoint, body, checks):
+    create_endpoint.create_new_object(body)
+    checks.response = create_endpoint.response
     checks.check_that_response_is_200()
-    checks.check_id_in_response()
 
 
 @pytest.mark.critical
 @allure.story('Put')
 @allure.feature('Взаимодействие с объектами')
 @allure.title('Тест обновления объекта')
-def test_put_object(update_post_endpoint, object_id, checks):
-    update_post_endpoint.update_object(object_id)
-    checks.response = update_post_endpoint.response
+def test_put_object(update_endpoint, object_id, checks):
+    update_endpoint.update_object(object_id)
+    checks.response = update_endpoint.response
     checks.check_that_response_is_200()
 
 
@@ -69,9 +68,9 @@ def test_put_object(update_post_endpoint, object_id, checks):
 @allure.story('Patch')
 @allure.feature('Взаимодействие с объектами')
 @allure.title('Тест обновления объекта')
-def test_patch_object(patch_post_endpoint, object_id, checks):
-    patch_post_endpoint.patch_object(object_id)
-    checks.response = patch_post_endpoint.response
+def test_patch_object(patch_endpoint, object_id, checks):
+    patch_endpoint.patch_object(object_id)
+    checks.response = patch_endpoint.response
     checks.check_that_response_is_200()
 
 
@@ -79,7 +78,7 @@ def test_patch_object(patch_post_endpoint, object_id, checks):
 @allure.feature('Взаимодействие с объектами')
 @allure.story('Del')
 @allure.title('Тест удаления объекта')
-def test_delete_object(delete_post_endpoint):
+def test_delete_object(delete_endpoint, checks):
     body = {
         "name": "Object for Deletion",
         "data": {
@@ -89,4 +88,6 @@ def test_delete_object(delete_post_endpoint):
             "Hard disk size": "Test Size"
         }
     }
-    delete_post_endpoint.delete_object(body)
+    delete_endpoint.delete_object(body)
+    checks.response = delete_endpoint.response
+    checks.check_bad_requiest_is_404()

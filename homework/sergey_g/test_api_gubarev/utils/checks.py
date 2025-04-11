@@ -18,12 +18,12 @@ class Checks(Endpoint):
         assert self.response.status_code == 200, '200 is not 200'
 
     @allure.step('Check that 400 error received')
-    def check_bad_requiest(self):
+    def check_bad_requiest_is_400(self):
         assert self.response.status_code == 400, '400 is not 400'
 
-    @allure.step('Check all objects returned')
-    def check_all_objects_returned(self):
-        assert len(self.response.json()) >= 0, 'Not all objects returned'
+    @allure.step('Check that 404 error received')
+    def check_bad_requiest_is_404(self):
+        assert self.response.status_code == 404, '400 is not 400'
 
     @allure.step('Check that title is the same as sent')
     def check_id_in_response(self):

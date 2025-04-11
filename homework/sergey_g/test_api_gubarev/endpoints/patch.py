@@ -2,7 +2,7 @@ import requests
 from endpoints.endpoint import Endpoint
 
 
-class PatchPost(Endpoint):
+class PatchObject(Endpoint):
 
     def patch_object(self, object_id, headers=None):
         body = {

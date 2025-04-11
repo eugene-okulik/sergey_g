@@ -2,7 +2,7 @@ import requests
 from endpoints.endpoint import Endpoint
 
 
-class UpdatePost(Endpoint):
+class UpdateObject(Endpoint):
 
     def update_object(self, object_id, headers=None):
         body = {
